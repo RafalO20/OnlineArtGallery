@@ -1,0 +1,50 @@
+.homepage{
+    width: 100vw;
+    height: 100vh;
+    background-image: url(/static/images/Homepagebgc.jpg);
+    background-position: center;
+    margin: auto;
+    &__elements{
+        display: flex;
+        padding-top: 30rem;
+    }
+    &__element{
+        width: 250px;
+        height: 350px;
+        border: 2px solid #B8A15C;
+        margin: auto;
+        background-image: url(./images/testowe.jpg);
+        background-position: center;
+        position: relative;
+    }
+}
+
+.container-top{
+    padding-top: 120px;
+}
+
+.main-text-banner{
+    font-size: 3rem;
+}
+
+
+// .button{
+//     &__show-art{
+//         background-color: black;
+//         border: 2px solid #B8A15C;
+//         width: 8rem;
+//         height: 3rem;
+//         text-align: center;
+//         color: white;
+//         position: absolute;
+//         top: calc(50% - 1.5rem);
+//         left: calc(50% - 4rem);
+//         opacity: 0.4;
+//         &:hover{
+//             color: #B8A15C;
+//             opacity: 1;
+//             cursor: pointer;
+//         }
+        
+//     }
+// }

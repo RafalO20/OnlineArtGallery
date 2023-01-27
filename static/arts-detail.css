@@ -1,0 +1,11 @@
+.arts-detail-container {
+  min-width: 100%;
+  min-height: 100vh;
+  background-color: black;
+  padding-bottom: 30px; }
+
+.card {
+  background-color: rgba(0, 0, 0, 0.8);
+  border: 2px solid #B8A15C; }
+
+/*# sourceMappingURL=arts-detail.css.map */

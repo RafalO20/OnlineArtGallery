@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% block title %}Dzieła Sztuki{% endblock %}
+
+{% block content%}
+<head>
+  {% load sass_tags %}
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+      <link href="{% sass_src 'nav.scss' %}" rel="stylesheet" type="text/css" />
+      <link href="{% sass_src 'item-list.scss' %}" rel="stylesheet" type="text/css" />
+      <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<style>
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+</style>
+<nav class="navigation">
+  <div class="navigation__main-logo"><img src="/static/images/main-logo-2.png"></div>
+  <ul class="navigation__list" id="nav-ul">
+      <li class="navigation__elements"><a class="navigation__element" href="/">HOME</a></li>
+      <li class="navigation__elements"><a class="navigation__element" href="#">GALERIA SZTUKI</a></li>
+      <li class="navigation__elements"><a class="navigation__element" href="/artists">ARTYŚCI</a></li>
+      <li class="navigation__elements"><a class="navigation__element" href="/about-us">O NAS</a></li>
+      <li class="navigation__elements"><a class="navigation__element" href="/profile">KONTO</a></li>
+      <li class="navigation__elements"><a class="navigation__element" href="/cart">KOSZYK</a></li>
+      <li class="navigation__elements">
+        {% if user.is_authenticated %}
+        <p><a class="navigation__element" href="{% url 'logout' %}">WYLOGUJ SIĘ</a></p>
+      {% else %}
+        <a class="navigation__element" href="{% url 'login' %}">ZALOGUJ SIĘ</a>
+      {% endif %}
+      </li>
+      <li class="navigation__elements">
+        {% if user.is_authenticated %}
+        <p class="navigation__element navigation__user">Hi {{ user.username }}!</p>
+      {% else %}
+        <a class="navigation__element" href="{% url 'signup' %}">ZAREJESTRUJ SIĘ</a>
+      {% endif %}
+      </li>
+  </ul>
+</nav>
+<div class="item_list-container" style="background-image: url(/static/images/homepage3_Klaps.jpg);     background-position: center;
+background-size: cover;
+background-repeat: no-repeat;
+background-attachment: fixed;">
+  <div class="filtr-big-container">
+    <div class="filtr-container">
+      <p class="filtr-container__list-element-p">Filtruj</p>
+      <ul class="filtr-container__list">
+        <li class="filtr-container__list-elements"><a class="filtr-container__list-element" href="{% url 'item_list' %}">Wszystkie</a></li>
+        <li class="filtr-container__list-elements"><a class="filtr-container__list-element" href="{% url 'item_list' 'Obraz' %}">Obrazy</a></li>
+        <li class="filtr-container__list-elements"><a class="filtr-container__list-element" href="{% url 'item_list' 'Rzezba' %}">Rzeźby</a></li>
+        <li class="filtr-container__list-elements"><a class="filtr-container__list-element" href="{% url 'item_list' 'Fotografia' %}">Fotografie</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="card-container">
+    <div class="card-position">
+  {% for prod in product %}
+    <div class="card" style="max-width: 450px; max-height: 500px;">
+      <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+        <img src="/media/{{prod.product_image}}" class="img-fluid">
+        <a href="/media/{{prod.product_image}}" target="_blank">
+          <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+        </a>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title"><div style="color: #d9d0b4;">KATEGORIA </div>{{prod.category}}</h5>
+        <h5 class="card-title"><div style="color: #d9d0b4;">NAZWA DZIEŁA </div> {{prod.title}}</h5>
+        <h4 class="card-title"><div style="color: #d9d0b4;">CENA </div> {{prod.discounted_price}}zł</h5>
+        {% comment %} <p class="card-text">Opis: {{prod.description}}</p>
+        <p>Autor: {{prod.author}}</p> {% endcomment %}
+        <a href="{% url 'arts-detail' prod.id %}" class="btn btn-primary btn-add">Szczegóły</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% for item in items %}
+  <div class="card-position">
+    <div class="card" style="max-width: 450px; max-height: 500px;">
+      <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+        <img src="/media/{{item.product_image}}" class="img-fluid">
+        <a href="/media/{{item.product_image}}" target="_blank">
+          <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+        </a>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title"><div style="color: #d9d0b4;">KATEGORIA </div>{{item.category}}</h5>
+        <h5 class="card-title"><div style="color: #d9d0b4;">NAZWA DZIEŁA </div>{{item.title}}</h5>
+        <h4 class="card-title"><div style="color: #d9d0b4;">CENA </div>{{item.discounted_price}}zł</h5>
+        {% comment %} <p class="card-text">{{item.description}}</p>
+        <p>{{item.author}}</p> {% endcomment %}
+        <a href="{% url 'arts-detail' item.id %}" class="btn btn-primary btn-add">Podgląd</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+</div>
+{% endblock content%}

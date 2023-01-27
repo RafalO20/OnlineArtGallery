@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<style>
+
+  label, h3{
+    color: #d9d0b4;
+}
+input{
+    background-color: transparent;
+    border: 1px solid #d9d0b4;
+    margin-top: 10px;
+    color: white;
+}
+
+  label[for="id_username"]{
+    visibility: hidden;
+    position: relative;
+}
+label[for="id_username"]:after{
+    visibility: visible;
+    position: absolute;
+    content:'Nazwa';
+    top: 0;
+    left: 0;
+    width: 200px;
+}
+label[for="id_password"]{
+  visibility: hidden;
+  position: relative;
+}
+label[for="id_password"]:after{
+  visibility: visible;
+  position: absolute;
+  content:'Hasło';
+  top: 0;
+  left: 0;
+  width: 200px;
+}
+</style>
+{% comment %} <div class="login__main-header">Zaloguj się</div>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Log In</button>
+</form> {% endcomment %}
+{% comment %} <div>
+  <h3>Login</h3>
+  <form action="" method="post" novalidate class="shadow p-5">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Log In</button>
+  </form>
+  <a href="/">Wróć</a>
+</div> {% endcomment %}
+<html style="background-image: url(/static/images/Fotografia4-autho.jpg);     background-position: center;
+background-size: cover;
+background-repeat: no-repeat;
+background-attachment: fixed;">
+  <main style="background-image: url(/static/images/Fotografia4-autho.jpg);     background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;">
+    <div class="container" style="background-image: url(/static/images/Fotografia4-autho.jpg);     background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;">
+      <div class="row my-3" >
+        <div class="col-sm-6 offset-sm-3">
+          <h3>Logowanie</h3>
+          <hr>
+          <form action="" method="post" novalidate class="shadow p-5">
+            {% csrf_token %}
+            {% for fm in form %}
+              {{fm.label_tag}} {{fm}} <small class="text-danger">{{fm.errors|striptags}} </small> <br>
+            {% endfor %}
+            <br>
+            <input type="submit" class="btn btn-primary mt-4" value="Login">
+            <div class="text-center" text-primary fw-bold><small>Nowy użytkownik <a href="{% url 'signup' %}"
+              class="text-danger">Utwórz konto</a></small>
+            </div>
+            <small><a href="{% url 'password-reset' %}">Zapomniałeś hasła ?</a></small>
+
+            {% if form.non_field_errors %}
+              {% for error in form.non_field_errors %}
+                <p class="alert alert-danger my-3">{{error}}</p>
+              {% endfor %}
+            {% endif %}
+              
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+</html>
+{% endblock %}

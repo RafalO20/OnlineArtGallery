@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block title %}Artyści{% endblock %}
+
+{% block content%}
+<head>
+  {% load sass_tags %}
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+      <link href="{% sass_src 'nav.scss' %}" rel="stylesheet" type="text/css" />
+      <link href="{% sass_src 'artists.scss' %}" rel="stylesheet" type="text/css" />
+</head>
+<style>
+  .artists-container{
+    margin: auto;
+    text-align: center;
+    width: 100%;
+    min-height: 100vh;
+  }
+  
+  .card-container{
+    text-align: center;
+    {% comment %} width: 100%;
+    min-height: 100vh;
+    margin-top: 0px;
+    background-image: url(/static/images/Homepagebgc.jpg); {% endcomment %}
+    background-image: url(/static/images/artistbgc_Klaps.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+  
+  .card-position{
+      {% comment %} display: inline-block;
+      justify-content: center;  {% endcomment %}
+  }
+  
+  .card{
+      width: 350px;
+      height: 450px;
+      margin: 20px;
+      background-color: rgba($color: #000000, $alpha: 0.6);
+      border: 1px solid #B8A15C;
+      color: white;
+      text-align: left;
+  }
+  
+  .btn-add{
+      background-color: #B8A15C;
+      border: 1px solid #B8A15C;
+      box-shadow: none;
+      opacity: 0.6;
+      &:hover{
+          background-color: #B8A15C;
+          border: 1px solid white;
+          opacity: 1;
+      }
+  }
+</style>
+  <nav class="navigation">
+    <div class="navigation__main-logo"><img src="/static/images/main-logo-2.png"></div>
+    <ul class="navigation__list" id="nav-ul">
+        <li class="navigation__elements"><a class="navigation__element" href="/">HOME</a></li>
+        <li class="navigation__elements"><a class="navigation__element" href="/item_list">GALERIA SZTUKI</a></li>
+        <li class="navigation__elements"><a class="navigation__element" href="#">ARTYŚCI</a></li>
+        <li class="navigation__elements"><a class="navigation__element" href="/about-us">O NAS</a></li>
+        <li class="navigation__elements"><a class="navigation__element" href="/profile">KONTO</a></li>
+        <li class="navigation__elements"><a class="navigation__element" href="/cart">KOSZYK</a></li>
+        <li class="navigation__elements">
+          {% if user.is_authenticated %}
+          <p><a class="navigation__element" href="{% url 'logout' %}">WYLOGUJ SIĘ</a></p>
+        {% else %}
+          <a class="navigation__element" href="{% url 'login' %}">ZALOGUJ SIĘ</a>
+        {% endif %}
+        </li>
+        <li class="navigation__elements">
+          {% if user.is_authenticated %}
+          <p class="navigation__element navigation__user">Hi {{ user.username }}!</p>
+        {% else %}
+          <a class="navigation__element" href="{% url 'signup' %}">ZAREJESTRUJ SIĘ</a>
+        {% endif %}
+        </li>
+    </ul>
+  </nav>
+<div class="artists-container">
+  <div class="card-container">
+    <div style="padding: 120px; padding-bottom: 20px">
+      <p style="text-transform: uppercase; font-size: 2rem; color: #B8A15C; background-color: rgba($color: #000000, $alpha: 0.6); width: 320px;
+      margin: auto;">Artyści</p>
+      {% for artist in artists %}
+      <div class="card-position">
+        <div class="card">
+          <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+            <img src="/media/{{artist.image}}" class="img-fluid">
+            <a href="/media/{{artist.image}}" target="_blank" id="img01">
+              <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+            </a>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">{{artist.name}}</h5>
+            <h4 class="card-title">{{artist.country}}</h4>
+            <a href="/media/{{artist.image}}" target="_blank" class="btn btn-primary btn-add">Podgląd</a>
+          </div>
+        </div>
+        {% endfor %}
+    </div>
+  </div>
+</div>
+</div>
+{% endblock content%}

@@ -1,0 +1,9 @@
+{
+	"version": 3,
+	"file": "arts-detail.css",
+	"sources": [
+		"arts-detail.scss"
+	],
+	"names": [],
+	"mappings": "AAAA,AAAA,sBAAsB,CAAA;EAClB,SAAS,EAAE,IAAI;EACf,UAAU,EAAE,KAAK;EACjB,gBAAgB,EAAE,KAAK;EACvB,cAAc,EAAE,IAAI,GACvB;;AAED,AAAA,KAAK,CAAA;EACD,gBAAgB,EAAe,kBAAK;EACpC,MAAM,EAAE,iBAAiB,GAC5B"
+}

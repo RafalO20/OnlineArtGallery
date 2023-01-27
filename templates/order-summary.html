@@ -1,0 +1,64 @@
+ {% extends 'base.html' %}
+
+  {% block title %}Order-summary{% endblock %}
+  
+  {% block content %}
+  <head>
+    {% load sass_tags %}
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        <link href="{% sass_src 'nav.scss' %}" rel="stylesheet" type="text/css" />
+        <link href="{% sass_src 'order-summary.scss' %}" rel="stylesheet" type="text/css" />
+  </head>
+  <div class="order-summary">
+    <!-- <app-nav></app-nav> -->
+    <nav class="navigation">
+      <div class="navigation__main-logo">Amazing Art Gallery</div>
+      <ul class="navigation__list" id="nav-ul">
+          <li class="navigation__elements"><a class="navigation__element" href="'/homepage'">HOME</a></li>
+          <li class="navigation__elements"><a class="navigation__element" href="/item_list">GALERIA SZTUKI</a></li>
+          <li class="navigation__elements"><a class="navigation__element" href="/artists">ARTYŚCI</a></li>
+          <li class="navigation__elements"><a class="navigation__element" href="/about-us">O NAS</a></li>
+          <li class="navigation__elements"><a class="navigation__element" href="{% url 'passwordchange' %}">KONTO</a></li>
+          <li class="navigation__elements"><a class="navigation__element" href="/cart">KOSZYK</a></li>
+          <li class="navigation__elements">
+            {% if user.is_authenticated %}
+            <p><a class="navigation__element" href="{% url 'logout' %}">WYLOGUJ SIĘ</a></p>
+          {% else %}
+            <a class="navigation__element" href="{% url 'login' %}">ZALOGUJ SIĘ</a>
+          {% endif %}
+          </li>
+          <li class="navigation__elements">
+            {% if user.is_authenticated %}
+            <p class="navigation__element navigation__user">Hi {{ user.username }}!</p>
+          {% else %}
+            <a class="navigation__element" href="{% url 'signup' %}">ZAREJESTRUJ SIĘ</a>
+          {% endif %}
+          </li>
+      </ul>
+    </nav>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Item title</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Total Item Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order_item in object.items.all %}
+                <tr>
+                    <th scope="row">1</th>
+                    <td>{{ order_item.item.title }}</td>
+                    <td>{{ order_item.item.price }}</td>
+                    <td>{{ order_item.item.quantity }}</td>
+                    <td>???</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+      </div>
+</div>
+  {% endblock %}

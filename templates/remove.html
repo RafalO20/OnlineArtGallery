@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Artyści{% endblock %}
+
+{% block content%}
+<html style="background-image: url(/static/images/homepage4_Klaps.jpg); background-position: center;
+background-size: cover;
+background-repeat: no-repeat;
+background-attachment: fixed;">
+    <div style="background-image: url(/static/images/homepage4_Klaps.jpg); background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed; margin-top: 100px;
+    width:100%; height:100%; text-algin: center;">
+        <div>
+            <h1 style=" color: white;">PŁATNOŚĆ PRZEBIEGŁA POMYŚLNIE</h1>
+            <a class="btn btn-warning" href="/">Przejdź do strony głównej</a>
+            <a class="btn btn-success" href="/order-summary">Zamówienia</a>
+            <a class="btn btn-primary" href="/cart">Koszyk</a>
+        </div>
+    </div>
+</html>
+
+{% endblock content%}

@@ -1,0 +1,9 @@
+{
+	"version": 3,
+	"file": "order-summary.css",
+	"sources": [
+		"order-summary.scss"
+	],
+	"names": [],
+	"mappings": "AAAA,AAAA,cAAc,CAAA;EACV,KAAK,EAAE,KAAK;EACZ,MAAM,EAAE,KAAK;EACb,gBAAgB,EAAE,6BAA6B,GAClD;;AACD,AAAA,iBAAiB,CAAA;EACb,WAAW,EAAE,KAAK,GACrB"
+}

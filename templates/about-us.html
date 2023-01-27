@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}O nas{% endblock %}
+
+{% block content%}
+<head>
+    {% load sass_tags %}
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        <link href="{% sass_src 'nav.scss' %}" rel="stylesheet" type="text/css" />
+        <link href="{% sass_src 'about-us.scss' %}" rel="stylesheet" type="text/css" />
+</head>
+<style>
+  .container-about-us{
+    width: 100vw;
+    height: 100vh;
+    background-image: url(/static/images/onas_Klaps.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    &__small{
+        color: white;
+    }
+    &__contact{
+        color: white;
+    }
+}
+</style>
+<div class="container-about-us">
+  <!-- <app-nav></app-nav> -->
+  <nav class="navigation">
+    <div class="navigation__main-logo"><img src="/static/images/main-logo-2.png"></div>
+    <ul class="navigation__list" id="nav-ul">
+        <li class="navigation__elements"><a class="navigation__element" href="/">HOME</a></li>
+        <li class="navigation__elements"><a class="navigation__element" href="/item_list">GALERIA SZTUKI</a></li>
+        <li class="navigation__elements"><a class="navigation__element" href="/artists">ARTYŚCI</a></li>
+        <li class="navigation__elements"><a class="navigation__element" href="#">O NAS</a></li>
+        <li class="navigation__elements"><a class="navigation__element" href="/profile">KONTO</a></li>
+        <li class="navigation__elements"><a class="navigation__element" href="/cart">KOSZYK</a></li>
+        <li class="navigation__elements">
+          {% if user.is_authenticated %}
+          <p><a class="navigation__element" href="{% url 'logout' %}">WYLOGUJ SIĘ</a></p>
+        {% else %}
+          <a class="navigation__element" href="{% url 'login' %}">ZALOGUJ SIĘ</a>
+        {% endif %}
+        </li>
+        <li class="navigation__elements">
+          {% if user.is_authenticated %}
+          <p class="navigation__element navigation__user">Hi {{ user.username }}!</p>
+        {% else %}
+          <a class="navigation__element" href="{% url 'signup' %}">ZAREJESTRUJ SIĘ</a>
+        {% endif %}
+        </li>
+    </ul>
+  </nav>
+  <div style="padding-top: 120px;"> 
+    <div class="container-about-us__small" style="background-color: black; max-width: 700px; margin: auto; opacity: 0.8;">
+      <div>
+      <h1 style="color: #B8A15C; margin-top: 6rem;">O nas</h1>
+      <div style="color: white">Amazing Art Gallery jest to internetowa galeria sztuki, która udostępnia dzieła sztuki w internecie</div>
+      <h2 style="color: #B8A15C; margin-top: 3rem;">Misja</h2>
+      <div style="color: white">Misją galerii sztuki jest dotarcie do jak największego grona odbiorców, tak aby zwiększać zainteresowanie sztuką</div>
+      </div>
+    </div>
+    <div class="container-about-us__small" style="background-color: black; max-width: 700px; margin: auto; opacity: 0.8;">
+      <h1 style="color: #B8A15C; margin-top: 12rem;">Kontakt</h2>
+      <p style="color: white">Adres: ul. Warszawska 48, 12-200 Pisz, Polska </p>
+      <p style="color: white">Kontakt: +48 999 999 999 </p>
+      <p style="color: white">Email: amazingArtGallery.online@gmail.com</p>
+    </div>
+  </div>
+{% endblock content%}

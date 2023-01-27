@@ -1,0 +1,59 @@
+.item_list-container {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  padding-bottom: 20px; }
+
+.card-container {
+  max-width: 100vw; }
+
+.card {
+  width: 450px;
+  height: 500px;
+  margin: 20px;
+  background-color: rgba(0, 0, 0, 0.6);
+  border: 1px solid #B8A15C;
+  color: white;
+  text-align: left;
+  overflow: hidden;
+  margin: 0px auto; }
+
+.btn-add {
+  background-color: #B8A15C;
+  border: 1px solid #B8A15C;
+  box-shadow: none;
+  opacity: 0.6; }
+  .btn-add:hover {
+    background-color: #B8A15C;
+    border: 1px solid white;
+    opacity: 1; }
+
+.filtr-big-container {
+  width: 100%;
+  color: white;
+  padding-top: 120px; }
+
+.filtr-container {
+  max-width: 20%;
+  margin: auto;
+  background-color: rgba(0, 0, 0, 0.6);
+  margin-top: 60px;
+  padding-top: 20px; }
+  .filtr-container__list {
+    padding-left: 0;
+    display: flex;
+    border: 2px solid #B8A15C;
+    padding: 1rem; }
+  .filtr-container__list-elements {
+    list-style: none;
+    margin: auto; }
+  .filtr-container__list-element:hover {
+    color: #B8A15C;
+    text-decoration: none; }
+  .filtr-container__list-element-p {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 2rem;
+    color: #B8A15C; }
+
+/*# sourceMappingURL=item-list.css.map */

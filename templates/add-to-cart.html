@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block title %}Koszyk{% endblock %}
+
+{% load sass_tags %}
+<link href="{% sass_src 'nav.scss' %}" rel="stylesheet" type="text/css" />
+
+{% block content %}
+{% csrf_token %}
+<html style="width: 100%; height: 100vh; background-color: black; background-image: url(/static/images/homepage4_Klaps.jpg); background-position: center;
+background-size: cover;
+background-repeat: no-repeat;
+background-attachment: fixed;">
+    <div style="width: 100%; height: 100%; background-color: black; background-image: url(/static/images/homepage4_Klaps.jpg); background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;">
+        <div class="container my-5">
+            <div class="row">
+            {% if cart %}
+            <h1 class="text-center mb-5" style="color: #d9d0b4">Koszyk</h1>
+            <div class="col-sm-8">
+                <div class="card">
+                    <div class="card-body" style="background-color: black; border: 1px solid #d9d0b4; border-radius: 10px;">
+                        <h3 style="color: #d9d0b4;">Koszyk</h3>
+                        {% for item in cart %}
+                        <div class="row">
+                            <div style="color: #d9d0b4;" class="col-sm-3 text-center align-self-center"><img src="{{item.product.product_image.url}}" alt="" srcset="" class="img-fluid img-thumbnail shadow-sm" height="150" width="150"></div>
+                            <div style="color: #d9d0b4;" class="col-sm-9">
+                                <div>
+                                    <h5 style="color: #d9d0b4;">{{item.product.title}}</h5>
+                                    <p style="color: #d9d0b4;" class="mb-2 text-muted small">{{item.product.description}}</p>
+                                    {% comment %} <div class="my-3">
+                                        <label for="quantity">Quantity:</label>
+                                        <a class="minus-cart btn" pid={{item.product.id}}><i class="fas fa-minus-square fa-lg"></i></a>
+                                            <span id="quantity">{{item.quantity}}</span>
+                                        <a class="plus-cart btn" pid={{item.product.id}}><i class="fas fa-plus-square fa-lg"></i></a>
+                                    </div> {% endcomment %}
+                                    <div class="d-flex justify-content-between">
+                                        <a class="remove-cart btn btn-sm btn-secondary mr-3" pid={{item.product.id}}>Usuń </a>
+                                        <p style="color: #d9d0b4;" class="mb-0"><span><strong>{{item.product.discounted_price}} zł</strong></span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="text-muted">
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="card">
+                    <div class="card-body" style="background-color: black; border: 1px solid #d9d0b4; border-radius: 10px;">
+                        <h3 style="color: #d9d0b4;">Całkowita kwota</h3>
+                        <ul class="list-group">
+                            <li style="background-color: black; color: #d9d0b4" class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">Do zapłaty <span id="amount">{{amount}} zł</span></li>
+                            <li style="background-color: black; color: #d9d0b4" class="list-group-item d-flex justify-content-between align-items-center px-0">Dostawa<span>40.00 zł</span></li>
+                            <li style="background-color: black; color: #d9d0b4" class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                                <div>
+                                    <strong>Łącznie do zapłaty</strong>
+                                </div>
+                                <span id="totalamount"><strong>{{totalamount}} zł</strong></span>
+                            </li>
+                        </ul>
+                        <div class="d-grid"><a href="{% url 'checkout' %}" class="btn btn-success">Złóż zamówienie</a></div>
+                        <a class="btn btn-primary d-grid" href="/item_list" style="margin-top: 30px;">Wróć</a>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+                <h1 class="text-center mb-5" style="color: #d9d0b4">Koszyk jest pusty</h1>
+            {% endif %}
+            </div>
+        </div>
+        </div>
+    </div>
+</html>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}Adres{% endblock title %}
+
+{% block content %} 
+<html style="width: 100%; height: 100vh; background-color: black; background-image: url(/static/images/Fotografia4-autho.jpg); background-position: center;
+background-size: cover;
+background-repeat: no-repeat;
+background-attachment: fixed;">
+    <div style="width: 100%; height: 100%; background-color: black; padding: 100px; background-image: url(/static/images/Fotografia4-autho.jpg); background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;">
+        <div class="container my-5">
+            <div class="row">
+                <h3 style="color: #d9d0b4;">Witaj <span class="text-capitalize">{{request.user}}</span></h3>
+                <div class="col-sm-2 border-end">
+                    <ul class="list-unstyled">
+                        <li class="d-grid"><a href="{% url 'profile'%}" class="btn">Profil</a></li>
+                        <li class="d-grid"><a href="{% url 'address'%}" class="btn btn-primary" style="color: black; background-color: #d9d0b4; box-shadow: none;">Zaktualizuj profil</a></li>
+                        <li class="d-grid"><a href="{% url 'passwordchange'%}" class="btn btn">Zmień hasło</a></li>
+                        <li class="d-grid"><a href="/" class="btn btn" style="background-color: #B8A15C; color: white;">Wróć</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-sm-9 offset-sm-1">
+                    <div class="row">
+                        {% for ad in add %}
+                        <div class="col-sm-6">
+                            <div class="card m-2">
+                                <div class="card-body" style="background-color: black; border: 1px solid #d9d0b4; border-radius: 10px;">
+                                    <h3 style="color: #d9d0b4;">Dane {{forloop.counter}}</h3>
+                                    <p style="color: #d9d0b4;">Imię i naziwsko: {{ad.name}}</p>
+                                    <p style="color: #d9d0b4;">Ulica i numer mieszkania: {{ad.locality}}</p>
+                                    <p style="color: #d9d0b4;">Telefon: {{ad.mobile}}</p>
+                                    <p style="color: #d9d0b4;">Miasto: {{ad.city}}</p>
+                                    <p style="color: #d9d0b4;">Województwo: {{ad.state}}</p>
+                                    <p style="color: #d9d0b4;">Kod pocztowy: {{ad.zipcode}}</p>
+                                    <p style="color: #d9d0b4;" class="text-center"><a href="{% url 'updateAddress' pk=ad.id %}" type="button" class="btn btn-success">Aktualizuj</a></p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+    </div>
+</html>
+{% endblock content %}

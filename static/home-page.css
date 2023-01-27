@@ -1,0 +1,25 @@
+.homepage {
+  width: 100vw;
+  height: 100vh;
+  background-image: url(/static/images/Homepagebgc.jpg);
+  background-position: center;
+  margin: auto; }
+  .homepage__elements {
+    display: flex;
+    padding-top: 30rem; }
+  .homepage__element {
+    width: 250px;
+    height: 350px;
+    border: 2px solid #B8A15C;
+    margin: auto;
+    background-image: url(./images/testowe.jpg);
+    background-position: center;
+    position: relative; }
+
+.container-top {
+  padding-top: 120px; }
+
+.main-text-banner {
+  font-size: 3rem; }
+
+/*# sourceMappingURL=home-page.css.map */

@@ -1,0 +1,187 @@
+{% extends 'base.html' %}
+
+{% block title %}Strona Główna{% endblock %}
+
+{% block content %}
+<head>
+  {% load sass_tags %}
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+      <link href="{% sass_src 'nav.scss' %}" rel="stylesheet" type="text/css" />
+      <link href="{% sass_src 'home-page.scss' %}" rel="stylesheet" type="text/css" />
+</head>
+<div class="homepage" style="background-image: url(/static/images/Homepagebgc.jpg);">
+  <!-- <app-nav></app-nav> -->
+  <nav class="navigation">
+    <div class="navigation__main-logo"><img src="./static/images/main-logo-2.png"></div>
+    <ul class="navigation__list" id="nav-ul">
+      {% if user.is_authenticated %}
+        <li class="navigation__elements"><a class="navigation__element" href="#">HOME</a></li>
+        <li class="navigation__elements"><a class="navigation__element" href="/item_list">GALERIA SZTUKI</a></li>
+        <li class="navigation__elements"><a class="navigation__element" href="/artists">ARTYŚCI</a></li>
+        <li class="navigation__elements"><a class="navigation__element" href="/about-us">O NAS</a></li>
+        <li class="navigation__elements"><a class="navigation__element" href="/profile">KONTO</a></li>
+        <li class="navigation__elements"><a class="navigation__element" href="/cart">KOSZYK</a></li>
+        {% endif %}
+        <li class="navigation__elements">
+          {% if user.is_authenticated %}
+          <p><a class="navigation__element" href="{% url 'logout' %}">WYLOGUJ SIĘ</a></p>
+        {% else %}
+          <a class="navigation__element" href="{% url 'login' %}">ZALOGUJ SIĘ</a>
+        {% endif %}
+        </li>
+        <li class="navigation__elements">
+          {% if user.is_authenticated %}
+          <p class="navigation__element navigation__user">Witaj {{ user.username }}!</p>
+        {% else %}
+          <a class="navigation__element" href="{% url 'signup' %}">ZAREJESTRUJ SIĘ</a>
+        {% endif %}
+        </li>
+    </ul>
+  </nav>
+  <div class="container-top"></div>
+{% if user.is_authenticated %}
+<!-- Carousel wrapper -->
+<div id="carouselBasicExample" class="carousel slide carousel-fade" data-mdb-ride="carousel">
+  <!-- Indicators -->
+  <div class="carousel-indicators">
+    <button
+      type="button"
+      data-mdb-target="#carouselBasicExample"
+      data-mdb-slide-to="0"
+      class="active"
+      aria-current="true"
+      aria-label="Slide 1"
+    ></button>
+    <button
+      type="button"
+      data-mdb-target="#carouselBasicExample"
+      data-mdb-slide-to="1"
+      aria-label="Slide 2"
+    ></button>
+    <button
+      type="button"
+      data-mdb-target="#carouselBasicExample"
+      data-mdb-slide-to="2"
+      aria-label="Slide 3"
+    ></button>
+  </div>
+
+  <!-- Inner -->
+  <div class="carousel-inner">
+    <!-- Single item -->
+    <div class="carousel-item active">
+      <img src="./static/images/banner2_Klaps.jpg" class="d-block w-100" alt="Sunset Over the City" style="width: 100vw; height: calc(100vh - 120px); object-fit: cover;"/>
+      <div class="carousel-caption d-none d-md-block">
+        <h5 class="main-text-banner">DZIEŁA SZTUKI</h5>
+        <p>W kategorii galeria sztuki skrywa się wiele interesujących obrazów, rzeźb oraz fotografii</p>
+      </div>
+    </div>
+
+    <!-- Single item -->
+    <div class="carousel-item">
+      <img src="./static/images/banner4_Klaps.jpg" class="d-block w-100" alt="Canyon at Nigh" style="width: 100vw; height: calc(100vh - 120px); object-fit: cover;"/>
+      <div class="carousel-caption d-none d-md-block">
+        <h5 class="main-text-banner" style="color: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(184,161,92,1) 35%, rgba(0,212,255,1) 100%);">ARTYŚCI</h5>
+        <p>Kategoria artyści skrywa artystów, którzy tworzą dla naszej galerii obrazy, rzeźby oraz fotografię</p>
+      </div>
+    </div>
+
+    <!-- Single item -->
+    <div class="carousel-item">
+      <img src="./static/images/banner6_Klaps.jpg" class="d-block w-100" alt="Cliff Above a Stormy Sea" style="width: 100vw; height: calc(100vh - 120px); object-fit: cover;"/>
+      <div class="carousel-caption d-none d-md-block">
+        <h5 class="main-text-banner" style="color: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(184,161,92,1) 35%, rgba(0,212,255,1) 100%);">ZAKUPY</h5>
+        <p>Każdy użytkownik strony ma możliwość zakupu dowolnego dzieła znajdującego się na naszej stronie</p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Inner -->
+
+  <!-- Controls -->
+  <button class="carousel-control-prev" type="button" data-mdb-target="#carouselBasicExample" data-mdb-slide="prev">
+    {% comment %} <span class="carousel-control-prev-icon" aria-hidden="true"></span> {% endcomment %}
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-mdb-target="#carouselBasicExample" data-mdb-slide="next">
+    {% comment %} <span class="carousel-control-next-icon" aria-hidden="true"></span> {% endcomment %}
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+{% else %}
+<!-- Carousel wrapper -->
+<div id="carouselBasicExample" class="carousel slide carousel-fade" data-mdb-ride="carousel">
+  <!-- Indicators -->
+  <div class="carousel-indicators">
+    <button
+      type="button"
+      data-mdb-target="#carouselBasicExample"
+      data-mdb-slide-to="0"
+      class="active"
+      aria-current="true"
+      aria-label="Slide 1"
+    ></button>
+    <button
+      type="button"
+      data-mdb-target="#carouselBasicExample"
+      data-mdb-slide-to="1"
+      aria-label="Slide 2"
+    ></button>
+    <button
+      type="button"
+      data-mdb-target="#carouselBasicExample"
+      data-mdb-slide-to="2"
+      aria-label="Slide 3"
+    ></button>
+  </div>
+
+  <!-- Inner -->
+  <div class="carousel-inner">
+    <!-- Single item -->
+    <div class="carousel-item active">
+      <img src="./static/images/banner2_Klaps.jpg" class="d-block w-100" alt="Sunset Over the City" style="width: 100vw; height: calc(100vh - 120px); object-fit: cover;"/>
+      <div class="carousel-caption d-none d-md-block">
+        <h5 class="main-text-banner" style="color: white; font-size: 1rem;">ZALOGUJ SIĘ ABY MÓC KORZYSTAĆ ZE STRONY</h5>
+        <h5 class="main-text-banner">DZIEŁA SZTUKI</h5>
+        <p>W kategorii galeria sztuki skrywa się wiele interesujących obrazów, rzeźb oraz fotografii</p>
+      </div>
+    </div>
+
+    <!-- Single item -->
+    <div class="carousel-item">
+      <img src="./static/images/banner4_Klaps.jpg" class="d-block w-100" alt="Canyon at Nigh" style="width: 100vw; height: calc(100vh - 120px); object-fit: cover;"/>
+      <div class="carousel-caption d-none d-md-block">
+        <h5 class="main-text-banner" style="color: white; font-size: 1rem;">ZALOGUJ SIĘ ABY MÓC KORZYSTAĆ ZE STRONY</h5>
+        <h5 class="main-text-banner" style="color: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(184,161,92,1) 35%, rgba(0,212,255,1) 100%);">ARTYŚCI</h5>
+        <p>Kategoria artyści skrywa artystów, którzy tworzą dla naszej galerii obrazy, rzeźby oraz fotografię</p>
+      </div>
+    </div>
+
+    <!-- Single item -->
+    <div class="carousel-item">
+      <img src="./static/images/banner6_Klaps.jpg" class="d-block w-100" alt="Cliff Above a Stormy Sea" style="width: 100vw; height: calc(100vh - 120px); object-fit: cover;"/>
+      <div class="carousel-caption d-none d-md-block">
+        <h5 class="main-text-banner" style="color: white; font-size: 1rem;">ZALOGUJ SIĘ ABY MÓC KORZYSTAĆ ZE STRONY</h5>
+        <h5 class="main-text-banner" style="color: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(184,161,92,1) 35%, rgba(0,212,255,1) 100%);">ZAKUPY</h5>
+        <p>Każdy użytkownik strony ma możliwość zakupu dowolnego dzieła znajdującego się na naszej stronie</p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Inner -->
+
+  <!-- Controls -->
+  <button class="carousel-control-prev" type="button" data-mdb-target="#carouselBasicExample" data-mdb-slide="prev">
+    {% comment %} <span class="carousel-control-prev-icon" aria-hidden="true"></span> {% endcomment %}
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-mdb-target="#carouselBasicExample" data-mdb-slide="next">
+    {% comment %} <span class="carousel-control-next-icon" aria-hidden="true"></span> {% endcomment %}
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+{% endif %}
+</div>
+{% endblock %}

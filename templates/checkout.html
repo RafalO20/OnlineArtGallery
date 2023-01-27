@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+
+{% block title %}Kup teraz{% endblock title %}
+
+{% block content %} 
+
+<html style="background-image: url(/static/images/homepage4_Klaps.jpg); background-position: center;
+background-size: cover;
+background-repeat: no-repeat;
+background-attachment: fixed;">
+<main style="background-image: url(/static/images/homepage4_Klaps.jpg); background-position: center;
+background-size: cover;
+background-repeat: no-repeat;
+background-attachment: fixed;">
+<div class="container" style="background-image: url(/static/images/homepage4_Klaps.jpg); background-position: center;
+background-size: cover;
+background-repeat: no-repeat;
+background-attachment: fixed;">
+    {% if messages %}
+        {% for msg in messages %}
+        <div class="alert alert-danger" role="alert">
+            {{msg}}
+        </div>
+        {% endfor %}
+    {% endif %}
+<div class="row mt-5">
+    <div class="col-sm-6">
+        <h4 style="color: #d9d0b4">Podsumowanie zamówienia</h4>
+        <hr style="color: #d9d0b4">
+        {% for item in cart_items %}
+            <div class="card mb-2" style="background-color: black; border: 1px solid #d9d0b4">
+                <div class="card-body">
+                    <h5 style="color: #d9d0b4">Dzieło sztuki: {{item.product.title}}</h5>
+                    <p style="color: #d9d0b4">Ilość: {{item.quantity}}</p>
+                    <p  style="color: #d9d0b4" class="fw-bold">Cena {{item.product.discounted_price}}</p>
+                </div>
+            </div>
+        {% endfor %}
+        <p class="fw-bold" style="color: #d9d0b4">Koszt całkowity + 40 zł = {{totalamount}}</p>
+        <small style="color: #d9d0b4">Term and Condition</SMALL> 
+    </div>
+    <div class="col-sm-4 offset-sm-1" />
+        <h4 style="color: #d9d0b4" >Wybierz adres wysyłki</h4>
+        <hr style="color: #d9d0b4">
+        <form method="post" id="myform">
+            {% csrf_token %}
+            {% for ad in add %}
+            <div class="card" style="background-color: black; border: 1px solid #d9d0b4">
+                <div class="card-body">
+                <h5 style="color: #d9d0b4">{{ad.name}}</h5>
+                <p style="color: #d9d0b4">Numer telefonu: {{ad.mobile}}</p>
+                <p style="color: #d9d0b4">{{ad.locality}} {{ad.city}} {{ad.state}} - {{add.zipcode}}</p>
+                </div>
+            </div>
+            <div class="form-check mt-2 mb-5">
+                <input class="form-check-input" type="radio" name="custid" id="custadd{{forloop.counter}}" value="{{ad.id}}">
+                <label style="color: #d9d0b4" class="form-check-label fw-bold" for="custadd{{forloop.counter}}">
+                    Adres zamieszkania:{{forloop.counter}}</label>
+            </div>
+            {% endfor %}
+                <div class="form-check mb-3">
+                    <label style="color: #d9d0b4" for="totamount" class="form-label">Całkowita kwota</label>
+                    <input type="number" class="form-control" name="totamount" value={{totalamount}} readonly>
+                </div>
+                <div class="text-end">
+                    {% comment %} <form  method="post">
+                        {% csrf_token %}
+                        <script src ="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                        data-key="{{ key }}"
+                        data-description="Payment Gateway"
+                        data-amount="{{ totalamount }}"
+                        data-locale="auto">
+                        </script>
+                    </form> {% endcomment %}
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#exampleModal">
+                        Zapłać
+                    </button>
+                    <div class="modal" tabindex="-1" id="exampleModal">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title">Amazing art gallery</h5>
+                              <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              Czy chcesz przejść dalej ?
+                            </div>
+                            <div class="modal-footer">
+                              <a href="/card">Zapłać</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                </div>
+        </form>
+    </div>
+</div>
+</div>
+</main>
+</html>
+{% endblock content %}
+{% comment %} {% block payment-gateway %}
+<button id="rzp-button1">Pay</button>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+var options = {
+    "key": "rzp_test_LxRqAytA5m1RfA", // Enter the Key ID generated from the Dashboard
+    "amount": "{{razoramount}}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+    "currency": "INR",
+    "name": "Amazing Art Gallery",
+    "description": "Test Transaction",
+    "order_id": "{{order_id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    "handler": function (response){
+        var form = document.getElementById("myform");
+       // alert(response.razorpay_payment_id);
+       // alert(response.razorpay_order_id);
+       // alert(response.razorpay_signature)
+    },
+    "theme": {
+        "color": "#3399cc"
+    }
+};
+var rzp1 = new Razorpay(options);
+rzp1.on('payment.failed', function (response){
+        alert(response.error.description);
+document.getElementById('rzp-button1').onclick = function(e){
+    rzp1.open();
+    e.preventDefault();
+}
+</script> {% endcomment %}
+{% comment %} {% endblock payment-gateway %} {% endcomment %}

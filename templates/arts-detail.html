@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block title %}Dzieło sztuki{% endblock %}
+
+{% block content%}
+{% load sass_tags %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+<link href="{% sass_src 'nav.scss' %}" rel="stylesheet" type="text/css" />
+<link href="{% sass_src 'arts-detail.scss' %}" rel="stylesheet" type="text/css" />
+
+<div class="arts-detail-container"  style="background-image: url(/static/images/homepage3_Klaps.jpg);     background-position: center;
+background-size: cover;
+background-repeat: no-repeat;
+background-attachment: fixed;">
+  <nav class="navigation">
+    <div class="navigation__main-logo"><img src="/static/images/main-logo-2.png"></div>
+    <ul class="navigation__list" id="nav-ul">
+        <li class="navigation__elements"><a class="navigation__element" href="/">HOME</a></li>
+        <li class="navigation__elements"><a class="navigation__element" href="/item_list">GALERIA SZTUKI</a></li>
+        <li class="navigation__elements"><a class="navigation__element" href="#">ARTYŚCI</a></li>
+        <li class="navigation__elements"><a class="navigation__element" href="/about-us">O NAS</a></li>
+        <li class="navigation__elements"><a class="navigation__element" href="/profile">KONTO</a></li>
+        <li class="navigation__elements"><a class="navigation__element" href="/cart">KOSZYK</a></li>
+        <li class="navigation__elements">
+          {% if user.is_authenticated %}
+          <p><a class="navigation__element" href="{% url 'logout' %}">WYLOGUJ SIĘ</a></p>
+        {% else %}
+          <a class="navigation__element" href="{% url 'login' %}">ZALOGUJ SIĘ</a>
+        {% endif %}
+        </li>
+        <li class="navigation__elements">
+          {% if user.is_authenticated %}
+          <p class="navigation__element navigation__user">Hi {{ user.username }}!</p>
+        {% else %}
+          <a class="navigation__element" href="{% url 'signup' %}">ZAREJESTRUJ SIĘ</a>
+        {% endif %}
+        </li>
+    </ul>
+  </nav>
+  <div class="card-position" style="margin: auto; padding-top: 200px;">
+    <div class="card" style="max-width: 1280px; height: calc(100vh-120px); text-align: center; margin: auto; color: white;">
+      <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+        <img src="/media/{{product.product_image}}" class="img-fluid">
+        <a href="/media/{{product.product_image}}" target="_blank">
+          <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+        </a>
+      </div>
+      <div class="card-body">
+        <h4 class="card-title"><div style="color: #d9d0b4;">KATEGORIA </div>{{product.category}}</h4>
+        <h4 class="card-title"><div style="color: #d9d0b4;">NAZWA DZIEŁA </div>{{product.title}}</h4>
+        <h5 class="card-title"><div style="color: #d9d0b4;">CENA </div>{{product.discounted_price}}$</h5>
+        <h6 class="card-text"><div style="color: #d9d0b4;">OPIS </div>{{product.description}}</h6>
+        <h6 ><div style="color: #d9d0b4;">AUTOR </div>{{product.author}}</h6>
+        <form action="/add-to-cart" class="d-line" style="padding-top: 30px;">
+          <input type="hidden" name="prod_id" value={{product.id}}/>
+          <button type="submit" class="btn btn-primary btn-add" style=" width: 150px; height: 40px; background: #B8A15C; border: solid 1px #B8A15C; box-shadow: none;">Do koszyka</button>
+          <a href="{% url 'showcart' %}" class="btn btn-warning shadow px-5 py-2 ms-4" style=" width: 200px; height: 40px; background: #ffd380; border: solid 1px #ffd380; color: black; margin-right: 25px;">Kup Teraz</a>
+          <a href="/item_list" class="btn btn-primary btn-add" style="width: 150px; height: 40px;">Wróć</a>
+        </form>
+      </div>
+    </div>
+</div>
+</div>
+{% comment %} <div class="container">
+  <div class="row flex justify-content-between">
+    <div class="img2 col-lg-5 mt-5">
+      <img src="{{product.product_image.url}}" class="image col-xs-6 col-sm-12 col-lg-12 mt-3 text-sm-center w-100 h-75" alt="">
+    </div>
+    <div class="productdetail col-lg-5">
+      <h1 style="font-family: Georgia; font-size: 50px;">{{product.title}}</h1>
+      <h5>Rs.{{product.discounted_price}}</h5>
+      <br><br><h4>Product Features</h4>
+      <ul class="fs-5" style="font-family: Rajdhani;">
+        <li>{{product.description}}</li>
+      </ul>
+      <div class="buttons row flex" style="font-family: Rajdhani;">
+        <form action="/add-to-cart" class="d-line">
+          <input type="hidden" name="prod_id" value={{product.id}}/>
+          <button type="submit" class="d-grid gap-2 btn1 btn btn-danger p-1 m-1 btn-lg text-decoration-none text-white">Do koszyka</button>
+        </form>
+        <div class="btn btn-dark p-1 m-1 btn-lg"><a href="{% url 'checkout' %}" class="text-decoration-none text-white">Kup Teraz</a></div>
+      </div>
+    </div>
+  </div>
+</div> {% endcomment %}
+
+{% endblock content%}
